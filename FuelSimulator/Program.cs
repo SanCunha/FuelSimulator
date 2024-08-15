@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using MvcVehicle.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<MvcVehicleContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("MvcVehicleContext") ?? throw new InvalidOperationException("Connection string 'MvcVehicleContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
